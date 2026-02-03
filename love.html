@@ -66,9 +66,10 @@ h1 {
 .heart::before { top: -7.5px; left: 0; }
 .heart::after { left: 7.5px; top: 0; }
 
-@keyframes floatAndRotate {
+/* Heart float animation from bottom to top with horizontal drift */
+@keyframes floatUp {
   0% { transform: translate(var(--startX), var(--startY)) rotate(0deg); opacity: 1; }
-  100% { transform: translate(var(--endX), var(--endY)) rotate(var(--rotateDeg)); opacity: 0; }
+  100% { transform: translate(calc(var(--startX) + var(--driftX)), calc(var(--startY) - var(--driftY))) rotate(var(--rotateDeg)); opacity: 0; }
 }
 
 /* Secret button bottom right */
@@ -96,7 +97,7 @@ h1 {
 <body>
 
 <div id="content">
-  <h1>I LOVE YOU!!!! ❤️</h1>
+  <h1>I LOVE YOU MY BABY MY FOREVER VALENTINE!! ❤️</h1>
   <div class="images">
     <img src="disney.png" alt="Disney">
     <img src="flower.png" alt="Flowers">
@@ -109,19 +110,17 @@ h1 {
 // Random number function
 function random(min, max) { return Math.random() * (max - min) + min; }
 
-// Create hearts on both sides of content
+// Generate hearts rising from bottom across entire width
 const heartCount = 50;
 for (let i = 0; i < heartCount; i++) {
   const heart = document.createElement("div");
   heart.className = "heart";
 
-  // Hearts start randomly around the content but not overlapping the center
-  const startX = (Math.random() < 0.5 ? random(-150, -10) : random(10 + window.innerWidth/2, window.innerWidth - 10)) + "px";
-  const startY = random(0, window.innerHeight) + "px";
-
-  const driftX = random(-50, 50) + "px";
-  const driftY = random(-200, -100) + "px";
-
+  // Start anywhere along bottom
+  const startX = random(0, window.innerWidth) + "px";
+  const startY = window.innerHeight + "px"; // bottom
+  const driftX = random(-100, 100) + "px"; // horizontal drift
+  const driftY = random(300, 600) + "px"; // vertical rise
   const rotateDeg = random(360, 1080) + "deg";
   const size = random(10, 25);
 
@@ -130,11 +129,12 @@ for (let i = 0; i < heartCount; i++) {
 
   heart.style.setProperty("--startX", startX);
   heart.style.setProperty("--startY", startY);
-  heart.style.setProperty("--endX", "calc(" + startX + " + " + driftX + ")");
-  heart.style.setProperty("--endY", "calc(" + startY + " + " + driftY + ")");
+  heart.style.setProperty("--driftX", driftX);
+  heart.style.setProperty("--driftY", driftY);
   heart.style.setProperty("--rotateDeg", rotateDeg);
 
-  heart.style.animation = `floatAndRotate ${random(4, 10)}s linear infinite`;
+  // Random animation duration for natural effect
+  heart.style.animation = `floatUp ${random(5, 12)}s linear infinite`;
 
   // Random z-index for layering
   heart.style.zIndex = Math.random() > 0.5 ? 5 : 15;
