@@ -46,10 +46,8 @@ h1 {
   bottom: 120px;
   left: 50%;
   transform: translateX(-50%) translateY(0);
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background-color: red;
+  width: 80px; /* bigger ball */
+  height: 80px;
   display: none;
   cursor: pointer;
   z-index: 15;
@@ -74,7 +72,7 @@ h1 {
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
 
-/* Shake animation */
+/* Shake animation for machine */
 @keyframes shake {
   0% { transform: translateX(0); }
   20% { transform: translateX(-10px); }
@@ -91,7 +89,8 @@ h1 {
 
 <div id="gachapon-container">
   <img id="gachapon" src="gachapon-machine.png" alt="Gachapon Machine">
-  <div id="capsule"></div>
+  <!-- This is the ball that comes out -->
+  <img id="capsule" src="gachapon-ball.png" alt="Capsule">
   <div id="letter">💌 Surprise! I love you, Em Yeu! 💖</div>
 </div>
 
@@ -103,16 +102,16 @@ const letter = document.getElementById('letter');
 let spun = false;
 
 gachapon.addEventListener('click', () => {
-  if (spun) return;
+  if (spun) return; // only allow once
   spun = true;
 
-  // Shake animation
+  // Shake machine
   gachapon.style.animation = "shake 1s";
 
-  // After shaking, show capsule
+  // Show capsule after shake
   setTimeout(() => {
     capsule.style.display = "block";
-    capsule.style.transform = "translateX(-50%) translateY(-200px)";
+    capsule.style.transform = "translateX(-50%) translateY(-220px)";
   }, 1000);
 });
 
