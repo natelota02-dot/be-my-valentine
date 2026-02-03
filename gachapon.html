@@ -19,29 +19,24 @@ body {
   position: relative;
 }
 
+h1 {
+  margin-bottom: 20px;
+  color: #c4006a;
+  font-size: 36px;
+}
+
 /* Gachapon container */
 #gachapon-container {
   position: relative;
   width: 300px;
   height: 400px;
+  cursor: pointer;
 }
 
 /* Gachapon machine */
 #gachapon {
   width: 100%;
   height: auto;
-}
-
-/* Spinning knob */
-#knob {
-  position: absolute;
-  bottom: 40px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 60px;
-  height: 60px;
-  cursor: pointer;
-  z-index: 10;
   transition: transform 0.2s;
 }
 
@@ -78,36 +73,43 @@ body {
   z-index: 20;
   box-shadow: 0 5px 15px rgba(0,0,0,0.3);
 }
+
+/* Shake animation */
+@keyframes shake {
+  0% { transform: translateX(0); }
+  20% { transform: translateX(-10px); }
+  40% { transform: translateX(10px); }
+  60% { transform: translateX(-10px); }
+  80% { transform: translateX(10px); }
+  100% { transform: translateX(0); }
+}
 </style>
 </head>
 <body>
 
-<h1>🎁 Spin the Gachapon!</h1>
+<h1>🎁 Click the Gachapon Machine!</h1>
 
 <div id="gachapon-container">
-  <!-- Replace this with your actual gachapon image -->
   <img id="gachapon" src="gachapon-machine.png" alt="Gachapon Machine">
-  <img id="knob" src="gachapon-knob.png" alt="Knob">
   <div id="capsule"></div>
   <div id="letter">💌 Surprise! I love you, Em Yeu! 💖</div>
 </div>
 
 <script>
-const knob = document.getElementById('knob');
+const gachapon = document.getElementById('gachapon');
 const capsule = document.getElementById('capsule');
 const letter = document.getElementById('letter');
 
 let spun = false;
 
-knob.addEventListener('click', () => {
-  if (spun) return; // Only spin once
+gachapon.addEventListener('click', () => {
+  if (spun) return;
   spun = true;
 
-  // Rotate knob animation
-  knob.style.transition = "transform 1s ease-in-out";
-  knob.style.transform = "translateX(-50%) rotate(720deg)";
+  // Shake animation
+  gachapon.style.animation = "shake 1s";
 
-  // Show capsule after knob spins
+  // After shaking, show capsule
   setTimeout(() => {
     capsule.style.display = "block";
     capsule.style.transform = "translateX(-50%) translateY(-200px)";
