@@ -44,41 +44,16 @@
     #no {
       position: absolute;
     }
-
-    #heartImage {
-      width: 160px;
-      margin-top: 30px;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
-
-    #yayMessage {
-      font-size: 28px;
-      color: #c4006a;
-      margin-top: 20px;
-      display: none;
-      opacity: 0;
-      transition: opacity 0.8s ease;
-    }
   </style>
 </head>
 
 <body>
 
   <div id="container">
-    <h1 id="question">Will you be my Valentine? 💘</h1>
+    <h1>Will you be my Valentine? 💘</h1>
 
-    <button onclick="showLove()">Yes ❤️</button>
+    <button onclick="goToLove()">Yes ❤️</button>
     <button id="no" onmouseover="moveButton()">No 😐</button>
-
-    <div id="yayMessage">YAY!!! 💕</div>
-
-    <img 
-      id="heartImage" 
-      src="heart.png" 
-      alt="Heart"
-    >
   </div>
 
   <script>
@@ -91,20 +66,8 @@
       noBtn.style.top = y + "px";
     }
 
-    function showLove() {
-      document.getElementById("question").innerText = "You said YES!!! 💖";
-
-      const yay = document.getElementById("yayMessage");
-      yay.style.display = "block";
-      setTimeout(() => {
-        yay.style.opacity = 1;
-      }, 50);
-
-      const heart = document.getElementById("heartImage");
-      heart.style.display = "block";
-      setTimeout(() => {
-        heart.style.opacity = 1;
-      }, 200);
+    function goToLove() {
+      window.location.href = "love.html";
     }
   </script>
 
