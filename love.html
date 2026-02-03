@@ -1,52 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>I Love You ❤️</title>
+<meta charset="UTF-8">
+<title>I Love You ❤️</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 
-  <style>
-    body {
-      background: #ffe6f0;
-      height: 100vh;
-      margin: 0;
+body {
+  margin: 0;
+  height: 100vh;
+  background-color: #fff5e1; /* cream color */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Patrick Hand', cursive;
+  overflow: hidden;
+  position: relative;
+}
 
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+h1 {
+  font-size: 48px;
+  color: #c4006a;
+  margin-bottom: 30px;
+  z-index: 10;
+}
 
-      font-family: Arial, sans-serif;
-      text-align: center;
-    }
+.images {
+  display: flex;
+  gap: 30px;
+  justify-content: center;
+  align-items: center;
+  z-index: 10;
+  position: relative;
+}
 
-    h1 {
-      font-size: 48px;
-      color: #c4006a;
-      margin-bottom: 30px;
-    }
+.images img {
+  width: 220px;
+  border-radius: 15px;
+  position: relative;
+  z-index: 10;
+}
 
-    .images {
-      display: flex;
-      gap: 30px;
-      justify-content: center;
-      align-items: center;
-    }
+/* Heart styling */
+.heart {
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: red;
+  transform: rotate(45deg);
+  opacity: 0.8;
+  border-radius: 50%;
+}
 
-    .images img {
-      width: 220px;
-      border-radius: 15px;
-    }
-  </style>
+.heart::before, .heart::after {
+  content: "";
+  position: absolute;
+  width: 15px;
+  height: 15px;
+  background: red;
+  border-radius: 50%;
+}
+
+.heart::before { top: -7.5px; left: 0; }
+.heart::after { left: 7.5px; top: 0; }
+
+/* Heart animation */
+@keyframes floatAndRotate {
+  0% {
+    transform: translate(var(--startX), var(--startY)) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--endX), var(--endY)) rotate(var(--rotateDeg));
+    opacity: 0;
+  }
+}
+</style>
 </head>
 
 <body>
 
-  <h1>I LOVE YOU MY BABY ❤️</h1>
+<h1>I LOVE YOU!!!! ❤️</h1>
 
-  <div class="images">
-    <img src="disney.png" alt="Disney">
-    <img src="flowers.png" alt="Flowers">
-  </div>
+<div class="images">
+  <img src="disney.png" alt="Disney">
+  <img src="flower.png" alt="Flowers">
+</div>
+
+<script>
+// Function to generate a random number between min and max
+function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
+
+// Create floating hearts
+const totalHearts = 50;
+for (let i = 0; i < totalHearts; i++) {
+  const heart = document.createElement("div");
+  heart.className = "heart";
+
+  // Random start position
+  const startX = random(0, window.innerWidth) + "px";
+  const startY = random(window.innerHeight, window.innerHeight + 200) + "px";
+
+  // Random end position (floating up)
+  const endX = random(-100, 100) + "px";
+  const endY = -200 + "px";
+
+  // Random rotation
+  const rotateDeg = random(360, 1080) + "deg";
+
+  // Random size
+  const size = random(10, 25);
+  heart.style.width = size + "px";
+  heart.style.height = size + "px";
+  heart.style.setProperty("--startX", startX);
+  heart.style.setProperty("--startY", startY);
+  heart.style.setProperty("--endX", "calc(" + startX + " + " + endX + ")");
+  heart.style.setProperty("--endY", endY);
+  heart.style.setProperty("--rotateDeg", rotateDeg);
+
+  // Random duration
+  const duration = random(4, 10);
+  heart.style.animation = `floatAndRotate ${duration}s linear infinite`;
+  
+  // Random z-index to layer hearts behind/in front of images
+  heart.style.zIndex = Math.random() > 0.5 ? 5 : 15;
+
+  document.body.appendChild(heart);
+}
+</script>
 
 </body>
 </html>
