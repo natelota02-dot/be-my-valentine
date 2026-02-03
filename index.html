@@ -27,27 +27,12 @@
       cursor: pointer;
     }
 
-    /* Envelope */
+    /* Envelope image */
     #envelope {
       width: 100%;
-      background-color: purple;
-      border-radius: 10px;
-      position: relative;
+      transition: transform 1s ease, opacity 1s ease;
       z-index: 2;
-      transition: transform 1s ease;
-    }
-
-    /* Heart seal */
-    #seal {
-      position: absolute;
-      bottom: 10px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 30px;
-      height: 30px;
-      background-color: red;
-      clip-path: polygon(50% 0%, 61% 17%, 79% 17%, 67% 29%, 71% 47%, 50% 38%, 29% 47%, 33% 29%, 21% 17%, 39% 17%);
-      z-index: 3;
+      display: block;
     }
 
     /* Letter */
@@ -167,8 +152,8 @@
 <body>
 
   <div id="envelope-container">
-    <div id="envelope"></div>
-    <div id="seal"></div>
+    <!-- Make sure you have a clear envelope image here -->
+    <img id="envelope" src="purple-envelope.png" alt="Envelope">
     <div id="letter">
       <p>From: Natty</p>
       <p>To: Em Yeu</p>
@@ -184,7 +169,6 @@
   <script>
     const envelope = document.getElementById("envelope");
     const letter = document.getElementById("letter");
-    const seal = document.getElementById("seal");
     const questionContainer = document.getElementById("question-container");
     const body = document.body;
 
@@ -192,7 +176,6 @@
       // Envelope flap lifts
       envelope.style.transform = "translateY(-50px) rotateX(180deg)";
       envelope.style.opacity = "0.7";
-      seal.style.opacity = "0";
 
       // Letter slides out
       setTimeout(() => {
