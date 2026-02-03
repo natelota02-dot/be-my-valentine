@@ -45,7 +45,7 @@ h1 {
   position: absolute;
   bottom: 120px;
   left: 50%;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(-50%) translateY(0) rotate(0deg);
   width: 80px; /* bigger ball */
   height: 80px;
   display: none;
@@ -53,14 +53,14 @@ h1 {
   z-index: 15;
 }
 
-/* Capsule bounce animation */
-@keyframes bounceOut {
-  0% { transform: translateX(-50%) translateY(0); }
-  20% { transform: translateX(-50%) translateY(-150px); }
-  40% { transform: translateX(-50%) translateY(-220px); }
-  60% { transform: translateX(-50%) translateY(-200px); }
-  80% { transform: translateX(-50%) translateY(-215px); }
-  100% { transform: translateX(-50%) translateY(-210px); }
+/* Capsule bounce with rotation animation */
+@keyframes bounceRotate {
+  0% { transform: translateX(-50%) translateY(0) rotate(0deg); }
+  20% { transform: translateX(-50%) translateY(-140px) rotate(45deg); }
+  40% { transform: translateX(-50%) translateY(-220px) rotate(90deg); }
+  60% { transform: translateX(-50%) translateY(-200px) rotate(135deg); }
+  80% { transform: translateX(-50%) translateY(-215px) rotate(180deg); }
+  100% { transform: translateX(-50%) translateY(-210px) rotate(225deg); }
 }
 
 /* Surprise letter */
@@ -116,17 +116,17 @@ gachapon.addEventListener('click', () => {
   // Shake machine
   gachapon.style.animation = "shake 1s";
 
-  // Show capsule with bounce
+  // Show capsule with bounce & rotation
   setTimeout(() => {
     capsule.style.display = "block";
-    capsule.style.animation = "bounceOut 1s ease forwards";
+    capsule.style.animation = "bounceRotate 1s ease forwards";
   }, 1000);
 });
 
 // Click capsule to reveal letter
 capsule.addEventListener('click', () => {
   capsule.style.transition = "transform 0.5s ease";
-  capsule.style.transform = "translateX(-50%) translateY(-250px) scale(1.2)";
+  capsule.style.transform = "translateX(-50%) translateY(-250px) scale(1.2) rotate(225deg)";
   
   setTimeout(() => {
     letter.style.display = "block";
