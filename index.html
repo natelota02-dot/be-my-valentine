@@ -1,226 +1,225 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Be My Valentine 💖</title>
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
+<meta charset="UTF-8">
+<title>Be My Valentine 💖</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Patrick+Hand&display=swap');
 
-    body {
-      background: pink;
-      height: 100vh;
-      margin: 0;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-family: 'Patrick Hand', cursive;
-      text-align: center;
-      overflow: hidden;
-      flex-direction: column;
-    }
+body {
+  background: pink;
+  height: 100vh;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: 'Patrick Hand', cursive;
+  text-align: center;
+  overflow: hidden;
+  flex-direction: column;
+}
 
-    /* Envelope container */
-    #envelope-container {
-      position: relative;
-      width: 220px;
-      height: 150px;
-      cursor: pointer;
-    }
+/* Envelope container */
+#envelope-container {
+  position: relative;
+  width: 220px;
+  height: 150px;
+  cursor: pointer;
+  z-index: 10;
+}
 
-    /* Envelope image */
-    #envelope {
-      width: 100%;
-      transition: transform 1s ease, opacity 1s ease;
-      z-index: 2;
-      display: block;
-    }
+/* Envelope image */
+#envelope {
+  width: 100%;
+  transition: transform 1s ease, opacity 1s ease;
+  display: block;
+}
 
-    /* Letter */
-    #letter {
-      position: absolute;
-      top: 0;
-      left: 10px;
-      width: 200px;
-      height: 130px;
-      background: #fff8e7;
-      border-radius: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      opacity: 0;
-      transform: translateY(50px);
-      transition: all 1s ease;
-      z-index: 1;
-      box-shadow: 0 5px 10px rgba(0,0,0,0.2);
-    }
+/* Letter */
+#letter {
+  position: absolute;
+  top: 0;
+  left: 10px;
+  width: 200px;
+  height: 130px;
+  background: #fff8e7;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+  z-index: 5;
+  box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+}
 
-    #letter p {
-      margin: 5px 0;
-      font-weight: bold;
-      font-size: 18px;
-      color: #c4006a;
-    }
+#letter p {
+  margin: 5px 0;
+  font-weight: bold;
+  font-size: 18px;
+  color: #c4006a;
+}
 
-    /* Sparkles */
-    .sparkle {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background: gold;
-      border-radius: 50%;
-      opacity: 0;
-      animation: sparkle 1.5s infinite;
-      z-index: 4;
-    }
+/* Sparkles */
+.sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: gold;
+  border-radius: 50%;
+  opacity: 0;
+  animation: sparkle 1.5s infinite;
+  z-index: 4;
+}
 
-    @keyframes sparkle {
-      0% { transform: translate(0,0) scale(0.5); opacity: 1; }
-      50% { transform: translate(5px,-10px) scale(1); opacity: 0.8; }
-      100% { transform: translate(0,0) scale(0.5); opacity: 0; }
-    }
+@keyframes sparkle {
+  0% { transform: translate(0,0) scale(0.5); opacity: 1; }
+  50% { transform: translate(5px,-10px) scale(1); opacity: 0.8; }
+  100% { transform: translate(0,0) scale(0.5); opacity: 0; }
+}
 
-    /* Hearts */
-    .heart {
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      transform: rotate(45deg);
-      opacity: 0;
-      animation: floatHeart 3s forwards;
-      z-index: 1;
-    }
+/* Hearts */
+.heart {
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  transform: rotate(45deg);
+  opacity: 0;
+  animation: floatHeart 3s forwards;
+  z-index: 1;
+}
 
-    .heart::before, .heart::after {
-      content: "";
-      position: absolute;
-      width: 20px;
-      height: 20px;
-      background: red;
-      border-radius: 50%;
-    }
+.heart::before, .heart::after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  background: red;
+  border-radius: 50%;
+}
 
-    .heart::before {
-      top: -10px;
-      left: 0;
-    }
+.heart::before { top: -10px; left: 0; }
+.heart::after { left: 10px; top: 0; }
 
-    .heart::after {
-      left: 10px;
-      top: 0;
-    }
+@keyframes floatHeart {
+  0% { transform: translateY(0) rotate(45deg); opacity: 1; }
+  100% { transform: translateY(-200px) rotate(45deg); opacity: 0; }
+}
 
-    @keyframes floatHeart {
-      0% { transform: translateY(0) rotate(45deg); opacity: 1; }
-      100% { transform: translateY(-200px) rotate(45deg); opacity: 0; }
-    }
+/* Question container hidden initially */
+#question-container {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
 
-    /* Question container hidden initially */
-    #question-container {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 20px;
-    }
+/* Make buttons side by side */
+#buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin-top: 10px;
+}
 
-    h1 {
-      font-size: 36px;
-      margin-bottom: 25px;
-    }
+button {
+  font-size: 20px;
+  padding: 15px 30px;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  transition: transform 0.2s;
+}
 
-    button {
-      font-size: 20px;
-      padding: 15px 30px;
-      margin: 10px;
-      cursor: pointer;
-      border: none;
-      border-radius: 10px;
-      transition: transform 0.2s;
-    }
+button:hover {
+  transform: scale(1.05);
+}
 
-    button:hover {
-      transform: scale(1.05);
-    }
-
-    #no {
-      position: absolute;
-    }
-  </style>
+/* Removed absolute positioning for No button */
+</style>
 </head>
 
 <body>
-
-  <div id="envelope-container">
-    <!-- Make sure you have a clear envelope image here -->
-    <img id="envelope" src="purple-envelope.png" alt="Envelope">
-    <div id="letter">
-      <p>From: Natty</p>
-      <p>To: Em Yeu</p>
-    </div>
+<div id="envelope-container">
+  <img id="envelope" src="purple-envelope.png" alt="Envelope">
+  <div id="letter">
+    <p>From: Natty</p>
+    <p>To: Em Yeu</p>
   </div>
+</div>
 
-  <div id="question-container">
-    <h1>Will you be my Valentine? 💘</h1>
+<div id="question-container">
+  <h1>Will you be my Valentine? 💘</h1>
+  <div id="buttons">
     <button onclick="goToLove()">Yes ❤️</button>
     <button id="no" onmouseover="moveButton()">No 😐</button>
   </div>
+</div>
 
-  <script>
-    const envelope = document.getElementById("envelope");
-    const letter = document.getElementById("letter");
-    const questionContainer = document.getElementById("question-container");
-    const body = document.body;
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+  const envelope = document.getElementById("envelope");
+  const letter = document.getElementById("letter");
+  const questionContainer = document.getElementById("question-container");
+  const body = document.body;
 
-    envelope.addEventListener("click", () => {
-      // Envelope flap lifts
-      envelope.style.transform = "translateY(-50px) rotateX(180deg)";
-      envelope.style.opacity = "0.7";
+  envelope.addEventListener("click", () => {
+    // Animate envelope flap
+    envelope.style.transform = "translateY(-50px) rotateX(180deg)";
+    envelope.style.opacity = "0.7";
 
-      // Letter slides out
-      setTimeout(() => {
-        letter.style.opacity = "1";
-        letter.style.transform = "translateY(0)";
-      }, 500);
+    // Slide out letter
+    setTimeout(() => {
+      letter.style.opacity = "1";
+      letter.style.transform = "translateY(0)";
+    }, 500);
 
-      // Sparkles
-      for (let i = 0; i < 10; i++) {
-        let sparkle = document.createElement("div");
-        sparkle.className = "sparkle";
-        sparkle.style.left = Math.random() * window.innerWidth + "px";
-        sparkle.style.top = Math.random() * window.innerHeight/2 + "px";
-        sparkle.style.animationDelay = (Math.random()*1.5) + "s";
-        body.appendChild(sparkle);
-      }
-
-      // Hearts floating
-      for (let i = 0; i < 8; i++) {
-        let heart = document.createElement("div");
-        heart.className = "heart";
-        heart.style.left = (window.innerWidth/2 - 10 + (Math.random()*100-50)) + "px";
-        heart.style.bottom = "50px";
-        heart.style.animationDelay = (i*0.3) + "s";
-        body.appendChild(heart);
-      }
-
-      // Show question after letter slides out
-      setTimeout(() => {
-        questionContainer.style.display = "flex";
-      }, 1800);
-    });
-
-    function moveButton() {
-      const x = Math.random() * (window.innerWidth - 100);
-      const y = Math.random() * (window.innerHeight - 50);
-      const noBtn = document.getElementById("no");
-      noBtn.style.left = x + "px";
-      noBtn.style.top = y + "px";
+    // Sparkles
+    for (let i = 0; i < 10; i++) {
+      let sparkle = document.createElement("div");
+      sparkle.className = "sparkle";
+      sparkle.style.left = Math.random() * window.innerWidth + "px";
+      sparkle.style.top = Math.random() * window.innerHeight/2 + "px";
+      sparkle.style.animationDelay = (Math.random()*1.5) + "s";
+      body.appendChild(sparkle);
     }
 
-    function goToLove() {
-      window.location.href = "love.html";
+    // Floating hearts
+    for (let i = 0; i < 8; i++) {
+      let heart = document.createElement("div");
+      heart.className = "heart";
+      heart.style.left = (window.innerWidth/2 - 10 + (Math.random()*100-50)) + "px";
+      heart.style.bottom = "50px";
+      heart.style.animationDelay = (i*0.3) + "s";
+      body.appendChild(heart);
     }
-  </script>
+
+    // Show question after letter slides out
+    setTimeout(() => {
+      questionContainer.style.display = "flex";
+    }, 1800);
+  });
+});
+
+// Make the No button move away when hovered
+function moveButton() {
+  const x = Math.random() * (window.innerWidth - 100);
+  const y = Math.random() * (window.innerHeight - 50);
+  const noBtn = document.getElementById("no");
+  noBtn.style.position = "relative"; // keep it relative to container
+  noBtn.style.left = x + "px";
+  noBtn.style.top = "0px"; // only move horizontally
+}
+
+function goToLove() {
+  window.location.href = "love.html";
+}
+</script>
 
 </body>
 </html>
