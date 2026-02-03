@@ -9,13 +9,18 @@
 body {
   margin: 0;
   height: 100vh;
-  background-color: #fff5e1; /* cream color */
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+  background-color: #fff5e1; /* cream */
   font-family: 'Patrick Hand', cursive;
   overflow: hidden;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#content {
+  text-align: center;
+  z-index: 10; /* stay above some hearts */
   position: relative;
 }
 
@@ -23,8 +28,6 @@ h1 {
   font-size: 48px;
   color: #c4006a;
   margin-bottom: 30px;
-  z-index: 10;
-  text-align: center;
 }
 
 .images {
@@ -32,15 +35,11 @@ h1 {
   gap: 30px;
   justify-content: center;
   align-items: center;
-  z-index: 10;
-  position: relative;
 }
 
 .images img {
   width: 220px;
   border-radius: 15px;
-  position: relative;
-  z-index: 10;
 }
 
 /* Floating hearts */
@@ -67,7 +66,6 @@ h1 {
 .heart::before { top: -7.5px; left: 0; }
 .heart::after { left: 7.5px; top: 0; }
 
-/* Heart animation */
 @keyframes floatAndRotate {
   0% { transform: translate(var(--startX), var(--startY)) rotate(0deg); opacity: 1; }
   100% { transform: translate(var(--endX), var(--endY)) rotate(var(--rotateDeg)); opacity: 0; }
@@ -97,29 +95,30 @@ h1 {
 </head>
 <body>
 
-<h1>I LOVE YOU!!!! ❤️</h1>
-
-<div class="images">
-  <img src="disney.png" alt="Disney">
-  <img src="flower.png" alt="Flowers">
+<div id="content">
+  <h1>I LOVE YOU!!!! ❤️</h1>
+  <div class="images">
+    <img src="disney.png" alt="Disney">
+    <img src="flower.png" alt="Flowers">
+  </div>
 </div>
 
 <button id="secret-button" onclick="goToGachapon()">Secret Click Me 🎁</button>
 
 <script>
-// Function to generate random number between min and max
+// Random number function
 function random(min, max) { return Math.random() * (max - min) + min; }
 
-// Create floating hearts all over the page
-for (let i = 0; i < 50; i++) {
+// Create hearts on both sides of content
+const heartCount = 50;
+for (let i = 0; i < heartCount; i++) {
   const heart = document.createElement("div");
   heart.className = "heart";
 
-  // Random starting position across entire screen
-  const startX = random(0, window.innerWidth) + "px";
+  // Hearts start randomly around the content but not overlapping the center
+  const startX = (Math.random() < 0.5 ? random(-150, -10) : random(10 + window.innerWidth/2, window.innerWidth - 10)) + "px";
   const startY = random(0, window.innerHeight) + "px";
 
-  // Random drift for animation
   const driftX = random(-50, 50) + "px";
   const driftY = random(-200, -100) + "px";
 
@@ -137,7 +136,7 @@ for (let i = 0; i < 50; i++) {
 
   heart.style.animation = `floatAndRotate ${random(4, 10)}s linear infinite`;
 
-  // Random layering: some hearts in front, some behind
+  // Random z-index for layering
   heart.style.zIndex = Math.random() > 0.5 ? 5 : 15;
 
   document.body.appendChild(heart);
