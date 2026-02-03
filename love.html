@@ -42,7 +42,7 @@ h1 {
   z-index: 10;
 }
 
-/* Heart styling */
+/* Floating hearts */
 .heart {
   position: absolute;
   width: 15px;
@@ -67,18 +67,32 @@ h1 {
 
 /* Heart animation */
 @keyframes floatAndRotate {
-  0% {
-    transform: translate(var(--startX), var(--startY)) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: translate(var(--endX), var(--endY)) rotate(var(--rotateDeg));
-    opacity: 0;
-  }
+  0% { transform: translate(var(--startX), var(--startY)) rotate(0deg); opacity: 1; }
+  100% { transform: translate(var(--endX), var(--endY)) rotate(var(--rotateDeg)); opacity: 0; }
+}
+
+/* Secret button bottom right */
+#secret-button {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 18px;
+  padding: 12px 18px;
+  background: #c4006a;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 20;
+  transition: transform 0.2s, background 0.3s;
+}
+
+#secret-button:hover {
+  transform: scale(1.1);
+  background: #ff3366;
 }
 </style>
 </head>
-
 <body>
 
 <h1>I LOVE YOU!!!! ❤️</h1>
@@ -88,47 +102,35 @@ h1 {
   <img src="flower.png" alt="Flowers">
 </div>
 
+<button id="secret-button" onclick="goToGachapon()">Secret Click Me 🎁</button>
+
 <script>
-// Function to generate a random number between min and max
-function random(min, max) {
-  return Math.random() * (max - min) + min;
+// Function to generate random hearts
+function random(min,max){return Math.random()*(max-min)+min;}
+for(let i=0;i<50;i++){
+  const heart=document.createElement("div");
+  heart.className="heart";
+  const startX=random(0,window.innerWidth)+"px";
+  const startY=random(window.innerHeight,window.innerHeight+200)+"px";
+  const endX=random(-100,100)+"px";
+  const endY="-200px";
+  const rotateDeg=random(360,1080)+"deg";
+  const size=random(10,25);
+  heart.style.width=size+"px";
+  heart.style.height=size+"px";
+  heart.style.setProperty("--startX",startX);
+  heart.style.setProperty("--startY",startY);
+  heart.style.setProperty("--endX","calc("+startX+" + "+endX+")");
+  heart.style.setProperty("--endY",endY);
+  heart.style.setProperty("--rotateDeg",rotateDeg);
+  heart.style.animation=`floatAndRotate ${random(4,10)}s linear infinite`;
+  heart.style.zIndex=Math.random()>0.5?5:15;
+  document.body.appendChild(heart);
 }
 
-// Create floating hearts
-const totalHearts = 50;
-for (let i = 0; i < totalHearts; i++) {
-  const heart = document.createElement("div");
-  heart.className = "heart";
-
-  // Random start position
-  const startX = random(0, window.innerWidth) + "px";
-  const startY = random(window.innerHeight, window.innerHeight + 200) + "px";
-
-  // Random end position (floating up)
-  const endX = random(-100, 100) + "px";
-  const endY = -200 + "px";
-
-  // Random rotation
-  const rotateDeg = random(360, 1080) + "deg";
-
-  // Random size
-  const size = random(10, 25);
-  heart.style.width = size + "px";
-  heart.style.height = size + "px";
-  heart.style.setProperty("--startX", startX);
-  heart.style.setProperty("--startY", startY);
-  heart.style.setProperty("--endX", "calc(" + startX + " + " + endX + ")");
-  heart.style.setProperty("--endY", endY);
-  heart.style.setProperty("--rotateDeg", rotateDeg);
-
-  // Random duration
-  const duration = random(4, 10);
-  heart.style.animation = `floatAndRotate ${duration}s linear infinite`;
-  
-  // Random z-index to layer hearts behind/in front of images
-  heart.style.zIndex = Math.random() > 0.5 ? 5 : 15;
-
-  document.body.appendChild(heart);
+// Secret button function
+function goToGachapon(){
+  window.location.href="gachapon.html";
 }
 </script>
 
