@@ -52,6 +52,15 @@
       opacity: 0;
       transition: opacity 0.8s ease;
     }
+
+    #yayMessage {
+      font-size: 28px;
+      color: #c4006a;
+      margin-top: 20px;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
   </style>
 </head>
 
@@ -60,8 +69,10 @@
   <div id="container">
     <h1 id="question">Will you be my Valentine? 💘</h1>
 
-    <button onclick="showHeart()">Yes ❤️</button>
+    <button onclick="showLove()">Yes ❤️</button>
     <button id="no" onmouseover="moveButton()">No 😐</button>
+
+    <div id="yayMessage">YAY!!! 💕</div>
 
     <img 
       id="heartImage" 
@@ -80,17 +91,20 @@
       noBtn.style.top = y + "px";
     }
 
-    function showHeart() {
+    function showLove() {
       document.getElementById("question").innerText = "You said YES!!! 💖";
-      
-      const heart = document.getElementById("heartImage");
-      heart.style.display = "block";
 
+      const yay = document.getElementById("yayMessage");
+      yay.style.display = "block";
       setTimeout(() => {
-        heart.style.opacity = 1;
+        yay.style.opacity = 1;
       }, 50);
 
-      alert("YAY!!! 💕");
+      const heart = document.getElementById("heartImage");
+      heart.style.display = "block";
+      setTimeout(() => {
+        heart.style.opacity = 1;
+      }, 200);
     }
   </script>
 
