@@ -11,8 +11,8 @@
       margin: 0;
 
       display: flex;
-      justify-content: center; /* vertical center */
-      align-items: center;     /* horizontal center */
+      justify-content: center;
+      align-items: center;
 
       font-family: Arial, sans-serif;
       text-align: center;
@@ -24,7 +24,7 @@
 
     h1 {
       font-size: 36px;
-      margin-bottom: 30px;
+      margin-bottom: 25px;
     }
 
     button {
@@ -34,6 +34,7 @@
       cursor: pointer;
       border: none;
       border-radius: 10px;
+      transition: transform 0.2s;
     }
 
     button:hover {
@@ -43,16 +44,30 @@
     #no {
       position: absolute;
     }
+
+    #heartImage {
+      width: 160px;
+      margin-top: 30px;
+      display: none;
+      opacity: 0;
+      transition: opacity 0.8s ease;
+    }
   </style>
 </head>
 
 <body>
 
   <div id="container">
-    <h1>Will you be my Valentine? 💘</h1>
+    <h1 id="question">Will you be my Valentine? 💘</h1>
 
-    <button onclick="alert('YAY!!! 💕')">Yes ❤️</button>
+    <button onclick="showHeart()">Yes ❤️</button>
     <button id="no" onmouseover="moveButton()">No 😐</button>
+
+    <img 
+      id="heartImage" 
+      src="heart.png" 
+      alt="Heart"
+    >
   </div>
 
   <script>
@@ -63,6 +78,19 @@
       const noBtn = document.getElementById("no");
       noBtn.style.left = x + "px";
       noBtn.style.top = y + "px";
+    }
+
+    function showHeart() {
+      document.getElementById("question").innerText = "You said YES!!! 💖";
+      
+      const heart = document.getElementById("heartImage");
+      heart.style.display = "block";
+
+      setTimeout(() => {
+        heart.style.opacity = 1;
+      }, 50);
+
+      alert("YAY!!! 💕");
     }
   </script>
 
